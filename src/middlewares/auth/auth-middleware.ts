@@ -3,6 +3,7 @@ import {HTTP_STATUSES} from "../../utils/common";
 import {jwtService} from "../../domain/jwt-service";
 import {usersCollection} from "../../index";
 import {ObjectId} from "mongodb";
+import {StatusCodes} from "http-status-codes";
 
 
 const login = 'admin'
@@ -62,6 +63,29 @@ export const bearerAuth = async (req: any, res: Response, next: NextFunction) =>
 
     res.sendStatus(HTTP_STATUSES.UNAUTHORIZED_401)
 }
+export const accessTokenValidityMiddleware = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    let accessTokenValue = req.headers.authorization;
+    if (!accessTokenValue || accessTokenValue.split(" ")[0].toLowerCase() !== "bearer") {
+        res.sendStatus(StatusCodes.UNAUTHORIZED);
+        return;
+    }
+
+    const token = accessTokenValue.split(" ")[1];
+    const accessTokenJWTPayloadResult = await jwtService.getJwtPayloadResult(
+        token,
+        process.env.ACCESS_TOKEN_SECRET as string
+    );
+    if (!accessTokenJWTPayloadResult) {
+        res.sendStatus(StatusCodes.UNAUTHORIZED);
+    } else {
+        req.userId = accessTokenJWTPayloadResult.userId;
+        next();
+    }
+};
 
 // export const bearerAuth = async (req: any, res: Response, next: NextFunction) => {
 //     const auth = req.headers['authorization']

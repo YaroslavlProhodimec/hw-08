@@ -1,7 +1,7 @@
 import {Router, Request, Response} from "express";
 import {UsersRepository} from "../repositories/users-repository";
 import {jwtService} from "../domain/jwt-service";
-import {bearerAuth} from "../middlewares/auth/auth-middleware";
+import {accessTokenValidityMiddleware, bearerAuth} from "../middlewares/auth/auth-middleware";
 import {userValidation} from "../validators/users-validator";
 import {authService} from "../service/authService";
 import {confirmationCodeValidator} from "../validators/code-validator";
@@ -115,6 +115,7 @@ authRouter.post('/login',
         }
 
     })
+
 authRouter.post(
     "/login",
     authValidator,
@@ -122,21 +123,31 @@ authRouter.post(
     logIn
 );
 
-authRouter.get('/me',
-    bearerAuth,
-    async (req: any, res: Response) => {
 
-        // const user = await UsersRepository.checkCredentials({loginOrEmail, password})
-        if (req.user) {
-            // const token = await jwtService.createJWT(user)
-            let {_id: id, login, email} = req.user
-            let userId = id.toString()
-            const user = {userId, login, email}
-            res.status(200).send(user)
-        } else {
-            res.sendStatus(401)
-        }
-    })
+
+authRouter.get(
+    "/me",
+    accessTokenValidityMiddleware,
+    getInfoAboutUser
+);
+
+//
+// authRouter.get('/me',
+//     // bearerAuth,
+//     accessTokenValidityMiddleware,
+//     async (req: any, res: Response) => {
+//
+//         // const user = await UsersRepository.checkCredentials({loginOrEmail, password})
+//         if (req.user) {
+//             // const token = await jwtService.createJWT(user)
+//             let {_id: id, login, email} = req.user
+//             let userId = id.toString()
+//             const user = {userId, login, email}
+//             res.status(200).send(user)
+//         } else {
+//             res.sendStatus(401)
+//         }
+//     })
 
 authRouter.post("/refresh-token", refreshTokenValidityMiddleware, refreshToken);
 authRouter.post("/logout", refreshTokenValidityMiddleware, logout);

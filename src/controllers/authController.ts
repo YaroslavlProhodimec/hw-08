@@ -58,18 +58,18 @@ export const logIn = async (
 };
 
 //
-// export const getInfoAboutUser = async (
-//   req: Request,
-//   res: Response<MeViewModel>
-// ) => {
-//   const foundUser = await usersCommandsRepository.findUserById(req.userId);
-//   if (foundUser) {
-//     const currentUser = getCurrentUserInfo(foundUser);
-//     res.status(StatusCodes.OK).send(currentUser);
-//   } else {
-//     res.sendStatus(StatusCodes.UNAUTHORIZED);
-//   }
-// };
+export const getInfoAboutUser = async (
+  req: Request,
+  res: Response<MeViewModel>
+) => {
+  const foundUser = await usersCommandsRepository.findUserById(req.userId);
+  if (foundUser) {
+    const currentUser = getCurrentUserInfo(foundUser);
+    res.status(StatusCodes.OK).send(currentUser);
+  } else {
+    res.sendStatus(StatusCodes.UNAUTHORIZED);
+  }
+};
 //
 // export const registerUser = async (
 //   req: RequestBodyModel<UserInputModel>,
@@ -142,8 +142,10 @@ export const logIn = async (
 import {authService} from "../service/authService";
 import {StatusCodes} from "http-status-codes";
 import {create_access_refresh_tokens} from "../utils/auth-utils/create_Access_Refresh_Tokens";
-import {LoginInputModel} from "../dto/authDTO/authDTO";
+import {LoginInputModel, MeViewModel} from "../dto/authDTO/authDTO";
 import {UsersRepository} from "../repositories/users-repository";
+import {usersCommandsRepository} from "../repositories/commands-repository/usersCommandsRepository";
+import {getCurrentUserInfo} from "../utils/auth-utils/getCurrentUserInfo";
 
 export const refreshToken = async (req: Request, res: Response) => {
     const refreshTokenFromClient = req.cookies.refreshToken;
@@ -161,10 +163,10 @@ export const refreshToken = async (req: Request, res: Response) => {
     res.status(StatusCodes.OK).send({ accessToken });
 };
 
-
 export const logout = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
   await authService.placeRefreshTokenToBlacklist(refreshToken, req.userId);
   res.clearCookie("refreshToken", { httpOnly: true, secure: true });
   res.sendStatus(StatusCodes.NO_CONTENT);
 };
+
