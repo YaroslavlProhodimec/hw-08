@@ -50,6 +50,7 @@ const startApp = async () => {
     await runDb()
     app.listen(port, async () => {
         console.log(`Listen on port ${port}`)
+        console.log('test')
     })
 }
 
