@@ -28,8 +28,15 @@ export async function runDb() {
     }
 }
 
-export const port = 5000
+const port = 5000
 
+app.use('/blogs', blogRoute)
+app.use('/posts', postRoute)
+app.use('/testing', testingRouter)
+app.use('/auth', authRouter)
+app.use('/users', usersRouter)
+app.use('/comments', commentsRoute)
+app.use('/', emailRouter)
 
 export const dbBlogs = client.db('node-blogs')
 
@@ -39,13 +46,13 @@ export const commentsCollection = dbBlogs.collection('comments')
 export const usersCollection = dbBlogs.collection<any>('users')
 export const refreshTokensBlacklistedCollection =
     dbBlogs.collection<RefreshTokensBlacklistDB>("refresh-tokens-blacklisted");
-
- const startApp = async () => {
+const startApp = async () => {
     await runDb()
     app.listen(port, async () => {
         console.log(`Listen on port ${port}`)
     })
 }
+
 startApp()
 //
 // import dotenv from 'dotenv';
