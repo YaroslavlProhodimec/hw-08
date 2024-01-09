@@ -50,6 +50,7 @@ export const getInfoAboutUser = async (
   req: Request,
   res: Response<MeViewModel>
 ) => {
+    console.log(req.userId,'userId')
   const foundUser = await usersCommandsRepository.findUserById(req.userId);
   if (foundUser) {
     const currentUser = getCurrentUserInfo(foundUser);

@@ -10,6 +10,7 @@ export const refreshTokenValidityMiddleware = async (
     next: NextFunction
 ) => {
   const refreshTokenFromClient = req.cookies.refreshToken;
+  console.log(refreshTokenFromClient,'refreshTokenFromClient')
   if (!refreshTokenFromClient || !refreshTokenFromClient.trim()) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
@@ -18,6 +19,7 @@ export const refreshTokenValidityMiddleware = async (
       refreshTokenFromClient,
       process.env.REFRESH_TOKEN_SECRET as string
   );
+  console.log(refreshTokenJWTPayloadResult,'refreshTokenJWTPayloadResult')
   if (!refreshTokenJWTPayloadResult) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;

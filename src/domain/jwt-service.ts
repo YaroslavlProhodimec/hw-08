@@ -19,6 +19,7 @@ export const jwtService = {
     ): Promise<JwtPayloadResult | null> {
         try {
             const result = jwt.verify(token, secret);
+            console.log(result,'result')
             return result as JwtPayloadResult;
         } catch (error) {
             if (error instanceof TokenExpiredError) {
