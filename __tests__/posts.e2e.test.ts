@@ -1,9 +1,8 @@
 import request from "supertest";
-import {app, HTTP_STATUSES, RouterPaths} from "../setting";
-import {CreatePostInputModel, UpdatePostModel} from "../models/posts-models/posts-models";
 import {postsTestManager} from "./postsTestManager";
-import {CreateBlogInputModel} from "../models/blogs-models/blog-models";
 import {blogsTestManager} from "./blogsTestManager";
+import {app} from "../src/settings";
+import {HTTP_STATUSES} from "../src/utils/common";
 
 describe('test for /posts', () => {
     beforeAll(async () => {

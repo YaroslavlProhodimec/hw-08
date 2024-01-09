@@ -4,7 +4,7 @@ import {JwtPayloadResult} from "../dto/common/jwt/JwtPayloadResult";
 export const jwtService = {
 
     async createJWT(user: any) {
-        const token =  jwt.sign({userId: user._id},'333',{expiresIn: '10'})
+        const token =  jwt.sign({userId: user._id},'333',{expiresIn: '100'})
         return token
     },
 

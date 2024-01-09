@@ -96,26 +96,6 @@ authRouter.post('/registration-email-resending',
     }
 )
 
-authRouter.post('/login',
-    authValidator(),
-    async (req: Request, res: Response) => {
-
-        let {loginOrEmail, password} = req.body
-
-        const user = await UsersRepository.checkCredentials({loginOrEmail, password})
-        if (user) {
-            const token = await jwtService.createJWT(user)
-            res.cookie("refreshToken", refreshToken, {
-                httpOnly: true,
-                secure: true,
-            });
-            res.status(200).send({accessToken: token})
-        } else {
-            res.sendStatus(401)
-        }
-
-    })
-
 authRouter.post(
     "/login",
     authValidator,
@@ -123,31 +103,11 @@ authRouter.post(
     logIn
 );
 
-
-
 authRouter.get(
     "/me",
     accessTokenValidityMiddleware,
     getInfoAboutUser
 );
-
-//
-// authRouter.get('/me',
-//     // bearerAuth,
-//     accessTokenValidityMiddleware,
-//     async (req: any, res: Response) => {
-//
-//         // const user = await UsersRepository.checkCredentials({loginOrEmail, password})
-//         if (req.user) {
-//             // const token = await jwtService.createJWT(user)
-//             let {_id: id, login, email} = req.user
-//             let userId = id.toString()
-//             const user = {userId, login, email}
-//             res.status(200).send(user)
-//         } else {
-//             res.sendStatus(401)
-//         }
-//     })
 
 authRouter.post("/refresh-token", refreshTokenValidityMiddleware, refreshToken);
 authRouter.post("/logout", refreshTokenValidityMiddleware, logout);

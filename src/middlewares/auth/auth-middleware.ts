@@ -40,29 +40,29 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
 
 }
 
-export const bearerAuth = async (req: any, res: Response, next: NextFunction) => {
-
-    if (!req.headers.authorization) {
-        res.send(HTTP_STATUSES.UNAUTHORIZED_401)
-        return ;
-    }
-
-    const token = req.headers.authorization.split(' ')[1]
-    const userId = await jwtService.getUserIdByToken(token)
-
-    console.log(userId, 'userId await jwtService.getUserIdByToken(token)')
-
-    let id =  new ObjectId(userId)
-    if (userId) {
-        req.user = await usersCollection.findOne({_id: id })
-        console.log(req.user,'req.user ')
-        return next()
-    }
-
-    // res.sendStatus(HTTP_STATUSES.NOT_FOUND_404)
-
-    res.sendStatus(HTTP_STATUSES.UNAUTHORIZED_401)
-}
+// export const bearerAuth = async (req: any, res: Response, next: NextFunction) => {
+//
+//     if (!req.headers.authorization) {
+//         res.send(HTTP_STATUSES.UNAUTHORIZED_401)
+//         return ;
+//     }
+//
+//     const token = req.headers.authorization.split(' ')[1]
+//     const userId = await jwtService.getUserIdByToken(token)
+//
+//     console.log(userId, 'userId await jwtService.getUserIdByToken(token)')
+//
+//     let id =  new ObjectId(userId)
+//     if (userId) {
+//         req.user = await usersCollection.findOne({_id: id })
+//         console.log(req.user,'req.user ')
+//         return next()
+//     }
+//
+//     // res.sendStatus(HTTP_STATUSES.NOT_FOUND_404)
+//
+//     res.sendStatus(HTTP_STATUSES.UNAUTHORIZED_401)
+// }
 export const accessTokenValidityMiddleware = async (
     req: Request,
     res: Response,

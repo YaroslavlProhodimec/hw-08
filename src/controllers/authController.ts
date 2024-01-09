@@ -1,18 +1,11 @@
-import {
-  RegistrationConfirmationCodeModel,
-  RegistrationEmailResending,
-} from "../dto/authDTO/authDTO";
 import { Request, Response } from "express";
-import { TApiErrorResultObject } from "../dto/common/ErrorResponseModel";
-import { responseErrorFunction } from "../utils/common-utils/responseErrorFunction";
-import { UserAlreadyExistsError } from "../utils/errors-utils/registration-errors/UserAlreadyExistsError";
-import { RegistrationError } from "../utils/errors-utils/registration-errors/RegistrationError";
-import { IncorrectConfirmationCodeError } from "../utils/errors-utils/registration-confirmation-errors/IncorrectConfirmationCodeError";
-import { UpdateUserError } from "../utils/errors-utils/registration-confirmation-errors/UpdateUserError";
-import { UserIsConfirmedError } from "../utils/errors-utils/registration-confirmation-errors/UserIsConfirmedError";
-import { ConfirmationCodeExpiredError } from "../utils/errors-utils/registration-confirmation-errors/ConfirmationCodeExpiredError";
-import { WrongEmailError } from "../utils/errors-utils/resend-email-errors/WrongEmailError";
-import { EmailAlreadyConfirmedError } from "../utils/errors-utils/resend-email-errors/EmailAlreadyConfirmedError";
+import {authService} from "../service/authService";
+import {StatusCodes} from "http-status-codes";
+import {create_access_refresh_tokens} from "../utils/auth-utils/create_Access_Refresh_Tokens";
+import {LoginInputModel, MeViewModel} from "../dto/authDTO/authDTO";
+import {UsersRepository} from "../repositories/users-repository";
+import {usersCommandsRepository} from "../repositories/commands-repository/usersCommandsRepository";
+import {getCurrentUserInfo} from "../utils/auth-utils/getCurrentUserInfo";
 
 import dotenv from "dotenv";
 
@@ -130,13 +123,6 @@ export const getInfoAboutUser = async (
 // };
 //
 // //@desc Generate new pair of access and refresh tokens (in cookie client must send correct refresh token that will be revoked after refreshing)
-import {authService} from "../service/authService";
-import {StatusCodes} from "http-status-codes";
-import {create_access_refresh_tokens} from "../utils/auth-utils/create_Access_Refresh_Tokens";
-import {LoginInputModel, MeViewModel} from "../dto/authDTO/authDTO";
-import {UsersRepository} from "../repositories/users-repository";
-import {usersCommandsRepository} from "../repositories/commands-repository/usersCommandsRepository";
-import {getCurrentUserInfo} from "../utils/auth-utils/getCurrentUserInfo";
 
 export const refreshToken = async (req: Request, res: Response) => {
     const refreshTokenFromClient = req.cookies.refreshToken;
