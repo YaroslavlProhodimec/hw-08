@@ -21,7 +21,7 @@ import {
 import {WrongEmailError} from "../utils/errors-utils/resend-email-errors/WrongEmailError";
 import {EmailAlreadyConfirmedError} from "../utils/errors-utils/resend-email-errors/EmailAlreadyConfirmedError";
 import {authValidator} from "../utils/auth-utils/auth-validator";
-import {logIn, logout, refreshToken} from "../controllers/authController";
+import {getInfoAboutUser, logIn, logout, refreshToken} from "../controllers/authController";
 import {refreshTokenValidityMiddleware} from "../middlewares/refreshTokenValidityMiddleware";
 import {responseErrorValidationMiddleware} from "../middlewares/responseErrorValidationMiddleware";
 
