@@ -1,5 +1,6 @@
 import {SortDirection, WithId} from "mongodb";
 import {usersCollection} from "../../index";
+import {UserDBType} from "../../dto/usersDTO/usersDTO";
 
 export const usersQueryRepository = {
   // async getUsers(
@@ -42,17 +43,17 @@ export const usersQueryRepository = {
   //     pageNumber
   //   );
   // },
-  // async findByLoginOrEmail(
-  //   loginOrEmail: string
-  // ): Promise<WithId<UserDBType> | null> {
-  //   const isUserExist = await usersCollection.findOne({
-  //     $or: [
-  //       { "accountData.login": loginOrEmail },
-  //       { "accountData.email": loginOrEmail },
-  //     ],
-  //   });
-  //   return isUserExist;
-  // },
+  async findByLoginOrEmail(
+    loginOrEmail: string
+  ): Promise<WithId<UserDBType> | null> {
+    const isUserExist = await usersCollection.findOne({
+      $or: [
+        { "accountData.login": loginOrEmail },
+        { "accountData.email": loginOrEmail },
+      ],
+    });
+    return isUserExist;
+  },
   async findUserByConfirmationCode(
     code: string
   ): Promise<WithId<any> | null> {

@@ -12,19 +12,22 @@ import dotenv from "dotenv";
 dotenv.config();
 //
 import {RequestBodyModel} from "../dto/common/RequestModels";
+import {usersService} from "../domain/users-service";
 
 export const logIn = async (
   req: RequestBodyModel<LoginInputModel>,
   res: Response
 ) => {
-  // const user = await usersService.checkCredentials(
-  //   req.body.loginOrEmail,
-  //   req.body.password
-  // );
+    console.log(req.body.loginOrEmail,'req.body.loginOrEmail')
+    console.log(    req.body.password,'req.body.password')
+  const user = await usersService.checkCredentials(
+    req.body.loginOrEmail,
+    req.body.password
+  );
     let {loginOrEmail, password} = req.body
-
-    const user = await UsersRepository.checkCredentials({loginOrEmail, password})
-
+    console.log(loginOrEmail,'loginOrEmail')
+    console.log(password,'password')
+    console.log(user,'user')
   if (!user) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
@@ -33,7 +36,8 @@ export const logIn = async (
   const { accessToken, refreshToken } = await create_access_refresh_tokens(
     user._id.toString()
   );
-
+    console.log(accessToken,'accessToken')
+    console.log(refreshToken,'refreshToken')
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,
@@ -41,7 +45,7 @@ export const logIn = async (
   return res.status(StatusCodes.OK).send({ accessToken });
 };
 
-//
+
 export const getInfoAboutUser = async (
   req: Request,
   res: Response<MeViewModel>
@@ -50,8 +54,11 @@ export const getInfoAboutUser = async (
   if (foundUser) {
     const currentUser = getCurrentUserInfo(foundUser);
     res.status(StatusCodes.OK).send(currentUser);
+    return
   } else {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
+      return
+
   }
 };
 //

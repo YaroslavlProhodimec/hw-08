@@ -79,6 +79,7 @@ export const accessTokenValidityMiddleware = async (
         token,
         process.env.ACCESS_TOKEN_SECRET as string
     );
+    console.log(token,'token')
     if (!accessTokenJWTPayloadResult) {
         res.sendStatus(StatusCodes.UNAUTHORIZED);
     } else {

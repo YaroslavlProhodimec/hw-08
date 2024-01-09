@@ -14,9 +14,13 @@ export const jwtService = {
     secret: string,
     expiresIn: number
   ): Promise<string> {
+    console.log(userId,'userId')
+    console.log(secret,'secret')
+    console.log(expiresIn,'expiresIn')
     const token = jwt.sign({ userId }, secret, {
       expiresIn,
     });
+    console.log(token,'token')
     return token;
   },
   async getJwtPayloadResult(

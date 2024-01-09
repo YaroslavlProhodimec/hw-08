@@ -63,7 +63,9 @@ export const authService = {
     },
 
     async confirmCode(code: string): Promise<any | string> {
+        console.log(code,'code')
         const user = await usersQueryRepository.findUserByConfirmationCode(code);
+        console.log(user,'user')
         if (!user || user?.emailConfirmation.confirmationCode !== code) {
             return new IncorrectConfirmationCodeError();
         }
