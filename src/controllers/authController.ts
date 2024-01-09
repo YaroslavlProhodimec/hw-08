@@ -18,16 +18,10 @@ export const logIn = async (
   req: RequestBodyModel<LoginInputModel>,
   res: Response
 ) => {
-    console.log(req.body.loginOrEmail,'req.body.loginOrEmail')
-    console.log(    req.body.password,'req.body.password')
   const user = await usersService.checkCredentials(
     req.body.loginOrEmail,
     req.body.password
   );
-    let {loginOrEmail, password} = req.body
-    console.log(loginOrEmail,'loginOrEmail')
-    console.log(password,'password')
-    console.log(user,'user')
   if (!user) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
@@ -36,8 +30,6 @@ export const logIn = async (
   const { accessToken, refreshToken } = await create_access_refresh_tokens(
     user._id.toString()
   );
-    console.log(accessToken,'accessToken')
-    console.log(refreshToken,'refreshToken')
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: true,
@@ -50,7 +42,8 @@ export const getInfoAboutUser = async (
   req: Request,
   res: Response<MeViewModel>
 ) => {
-    console.log(req.userId,'userId')
+    // console.log(req.userId,'userId')
+    // @ts-ignore
   const foundUser = await usersCommandsRepository.findUserById(req.userId);
   if (foundUser) {
     const currentUser = getCurrentUserInfo(foundUser);
@@ -136,9 +129,11 @@ export const refreshToken = async (req: Request, res: Response) => {
     const refreshTokenFromClient = req.cookies.refreshToken;
     await authService.placeRefreshTokenToBlacklist(
         refreshTokenFromClient,
+        // @ts-ignore
         req.userId
     );
     const { accessToken, refreshToken } = await create_access_refresh_tokens(
+        // @ts-ignore
         req.userId
     );
     res.cookie("refreshToken", refreshToken, {
@@ -150,8 +145,10 @@ export const refreshToken = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
+    // @ts-ignore
   await authService.placeRefreshTokenToBlacklist(refreshToken, req.userId);
   res.clearCookie("refreshToken", { httpOnly: true, secure: true });
+    // console.log( res.clearCookie("refreshToken", { httpOnly: true, secure: true }),' res.clearCookie("refreshToken", { httpOnly: true, secure: true });')
   res.sendStatus(StatusCodes.NO_CONTENT);
 };
 

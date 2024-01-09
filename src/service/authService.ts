@@ -38,7 +38,6 @@ export const authService = {
             }
         }
         const createUser = await usersCommandsRepository.createNewUser(user)
-        console.log(createUser, 'createUser')
         if (createUser === "login") {
             return new UserAlreadyExistsError(
                 createUser,

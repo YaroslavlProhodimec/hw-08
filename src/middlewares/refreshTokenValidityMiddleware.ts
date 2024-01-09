@@ -33,6 +33,7 @@ export const refreshTokenValidityMiddleware = async (
       res.sendStatus(StatusCodes.UNAUTHORIZED);
       return;
     } else {
+      // @ts-ignore
       req.userId = refreshTokenJWTPayloadResult.userId;
       next();
     }

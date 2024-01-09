@@ -69,7 +69,6 @@ export const usersService = {
   ): Promise<WithId<UserDBType> | null> {
     const user = await usersQueryRepository.findByLoginOrEmail(loginOrEmail);
     if (!user) return null;
-    console.log(user,'user')
     if (!user?.emailConfirmation.isConfirmed) {
       return null;
     }

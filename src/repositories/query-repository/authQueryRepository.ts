@@ -1,16 +1,17 @@
 import { ObjectId, WithId } from "mongodb";
 // import { refreshTokensBlacklistedCollection } from "../../db";
-import { RefreshTokensBlacklistDB } from "../../dto/authDTO/authDTO";
 import {refreshTokensBlacklistedCollection} from "../../index";
 export const authQueryRepository = {
   async findBlacklistedUserRefreshTokenById(
     userId: ObjectId,
     refreshToken: string
-  ): Promise<null | WithId<RefreshTokensBlacklistDB>> {
+  ): Promise<undefined | string> {
     const foundRefreshToken = await refreshTokensBlacklistedCollection.findOne({
       _id: userId,
-      refreshTokensArray: refreshToken,
     });
-    return foundRefreshToken;
+    if(!foundRefreshToken){
+      return undefined
+    }
+    return foundRefreshToken?.refreshTokensArray.find((el:any)=> el === refreshToken );
   },
 };

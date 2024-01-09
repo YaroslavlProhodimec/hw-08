@@ -13,6 +13,7 @@ export const responseErrorTransformerFunction = (
         .map((error) => {
           return {
             message: error.msg,
+              // @ts-ignore
             field: error.param,
           };
         });
