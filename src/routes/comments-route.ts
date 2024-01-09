@@ -1,15 +1,11 @@
 import {Response, Router} from "express";
 import {CommentsRepository} from "../repositories/comments-repository";
 import {HTTP_STATUSES} from "../utils/common";
-import {bearerAuth} from "../middlewares/auth/auth-middleware";
 import {commentsValidation} from "../validators/comments-validator";
 import {forbiddenResponseMiddleware} from "../middlewares/forbiddenResponseMiddleware";
 import {validateObjectIdMiddleware} from "../middlewares/validateObjectIdMiddleware";
-import {StatusCodes} from "http-status-codes";
-import {commentsService} from "../domain/comments-service";
 import {accessTokenValidityMiddleware} from "../middlewares/accessTokenValidityMiddleware";
 import {responseErrorValidationMiddleware} from "../middlewares/responseErrorValidationMiddleware";
-import {commentValidator} from "../utils/comments-utils/commentValidator";
 import {deleteComment, updateComment} from "../controllers/commentsController";
 
 
@@ -53,7 +49,6 @@ commentsRoute.put(
     accessTokenValidityMiddleware,
     validateObjectIdMiddleware,
     forbiddenResponseMiddleware,
-    // commentValidator,
     commentsValidation(),
     responseErrorValidationMiddleware,
     updateComment

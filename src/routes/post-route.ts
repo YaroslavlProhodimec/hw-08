@@ -2,7 +2,7 @@ import {Router, Request, Response} from "express";
 import {PostRepository} from "../repositories/post-repository";
 import {BlogParams} from "../types/blog/input";
 import {postValidation} from "../validators/post-validator";
-import {authMiddleware, bearerAuth} from "../middlewares/auth/auth-middleware";
+import {accessTokenValidityMiddleware, authMiddleware} from "../middlewares/auth/auth-middleware";
 import {HTTP_STATUSES} from "../utils/common";
 import {commentsValidation} from "../validators/comments-validator";
 import {CommentsRepository} from "../repositories/comments-repository";
@@ -69,7 +69,7 @@ postRoute.delete('/:id', authMiddleware, async (req: Request<BlogParams>, res: R
 })
 
 
-postRoute.post('/:postId/comments', bearerAuth,
+postRoute.post('/:postId/comments', accessTokenValidityMiddleware,
     commentsValidation(),
     async (req: any, res: Response) => {
         const content = req.body.content
@@ -80,7 +80,7 @@ postRoute.post('/:postId/comments', bearerAuth,
             res.sendStatus(HTTP_STATUSES.NOT_FOUND_404)
             return;
         }
-        const newComment = await CommentsRepository.createComments(content, req.user!._id,postId)
+        const newComment = await CommentsRepository.createComments(content, req.userId,postId)
 
         if (newComment) {
             res.status(HTTP_STATUSES.CREATED_201).json(newComment)

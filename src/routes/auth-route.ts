@@ -1,6 +1,4 @@
-import {Router, Request, Response} from "express";
-import {UsersRepository} from "../repositories/users-repository";
-import {jwtService} from "../domain/jwt-service";
+import {Router, Response} from "express";
 import {accessTokenValidityMiddleware} from "../middlewares/auth/auth-middleware";
 import {userValidation} from "../validators/users-validator";
 import {authService} from "../service/authService";

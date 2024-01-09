@@ -68,12 +68,12 @@ export const accessTokenValidityMiddleware = async (
     res: Response,
     next: NextFunction
 ) => {
+
     let accessTokenValue = req.headers.authorization;
     if (!accessTokenValue || accessTokenValue.split(" ")[0].toLowerCase() !== "bearer") {
         res.sendStatus(StatusCodes.UNAUTHORIZED);
         return;
     }
-
     const token = accessTokenValue.split(" ")[1];
     const accessTokenJWTPayloadResult = await jwtService.getJwtPayloadResult(
         token,
