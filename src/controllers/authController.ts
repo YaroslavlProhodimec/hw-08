@@ -1,31 +1,22 @@
-// import { getCurrentUserInfo } from "./../utils/auth-utils/getCurrentUserInfo";
-// import { StatusCodes } from "http-status-codes";
-// import { usersService } from "../domain/users-service";
-// import {
-//   LoginInputModel,
-//   MeViewModel,
-//   RegistrationConfirmationCodeModel,
-//   RegistrationEmailResending,
-// } from "../dto/authDTO/authDTO";
-// import { RequestBodyModel } from "../dto/common/RequestModels";
-// import { Request, Response } from "express";
-// import { usersCommandsRepository } from "../repositories/commands-repository/usersCommandsRepository";
-// import { UserInputModel } from "../dto/usersDTO/usersDTO";
-// import { authService } from "../domain/auth-service";
-// import { TApiErrorResultObject } from "../dto/common/ErrorResponseModel";
-// import { responseErrorFunction } from "../utils/common-utils/responseErrorFunction";
-// import { UserAlreadyExistsError } from "../utils/errors-utils/registration-errors/UserAlreadyExistsError";
-// import { RegistrationError } from "../utils/errors-utils/registration-errors/RegistrationError";
-// import { IncorrectConfirmationCodeError } from "../utils/errors-utils/registration-confirmation-errors/IncorrectConfirmationCodeError";
-// import { UpdateUserError } from "../utils/errors-utils/registration-confirmation-errors/UpdateUserError";
-// import { UserIsConfirmedError } from "../utils/errors-utils/registration-confirmation-errors/UserIsConfirmedError";
-// import { ConfirmationCodeExpiredError } from "../utils/errors-utils/registration-confirmation-errors/ConfirmationCodeExpiredError";
-// import { WrongEmailError } from "../utils/errors-utils/resend-email-errors/WrongEmailError";
-// import { EmailAlreadyConfirmedError } from "../utils/errors-utils/resend-email-errors/EmailAlreadyConfirmedError";
-// import * as dotenv from "dotenv";
-// import { create_access_refresh_tokens } from "../utils/auth-utils/create_Access_Refresh_Tokens";
-//
-// dotenv.config();
+import {
+  RegistrationConfirmationCodeModel,
+  RegistrationEmailResending,
+} from "../dto/authDTO/authDTO";
+import { Request, Response } from "express";
+import { TApiErrorResultObject } from "../dto/common/ErrorResponseModel";
+import { responseErrorFunction } from "../utils/common-utils/responseErrorFunction";
+import { UserAlreadyExistsError } from "../utils/errors-utils/registration-errors/UserAlreadyExistsError";
+import { RegistrationError } from "../utils/errors-utils/registration-errors/RegistrationError";
+import { IncorrectConfirmationCodeError } from "../utils/errors-utils/registration-confirmation-errors/IncorrectConfirmationCodeError";
+import { UpdateUserError } from "../utils/errors-utils/registration-confirmation-errors/UpdateUserError";
+import { UserIsConfirmedError } from "../utils/errors-utils/registration-confirmation-errors/UserIsConfirmedError";
+import { ConfirmationCodeExpiredError } from "../utils/errors-utils/registration-confirmation-errors/ConfirmationCodeExpiredError";
+import { WrongEmailError } from "../utils/errors-utils/resend-email-errors/WrongEmailError";
+import { EmailAlreadyConfirmedError } from "../utils/errors-utils/resend-email-errors/EmailAlreadyConfirmedError";
+
+import dotenv from "dotenv";
+
+dotenv.config();
 //
 import {RequestBodyModel} from "../dto/common/RequestModels";
 
