@@ -3,7 +3,7 @@ import {BlogType, OutputBlogType} from "../types/blog/output";
 import {ObjectId, WithId} from "mongodb";
 import {CreateBlogDto, SortDataType, UpdateBlogDto} from "../types/blog/input";
 import {blogMapper} from "../types/blog/mapper";
-import {blogCollection, postCollection} from "../index";
+import {blogCollection, postCollection} from "../db";
 
 
 export class BlogRepository {

@@ -3,10 +3,7 @@ import {BlogRepository} from "./blog-repository";
 import {OutputPostType, PostType} from "../types/post/output";
 import {postMapper} from "../types/post/mapper";
 import {CreatePostDto, UpdatePostDto} from "../types/post/input";
-import {blogCollection, postCollection} from "../index";
-import {SortDataType} from "../types/blog/input";
-import {BlogType} from "../types/blog/output";
-import {blogMapper} from "../types/blog/mapper";
+import {postCollection} from "../db";
 
 export class PostRepository {
     static async getAllPostsQueryParam(sortData: any) {

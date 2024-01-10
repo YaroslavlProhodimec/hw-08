@@ -1,9 +1,9 @@
-import {usersCollection} from "../../index";
 import {ObjectId, WithId} from "mongodb";
 import {v4 as uuidv4} from "uuid";
 import {add} from "date-fns/add";
 import {defineFieldMongoError} from "../../utils/defineFieldMongoError";
 import {usersMapper} from "../../types/users/mapper";
+import {usersCollection} from "../../db";
 
 export const usersCommandsRepository = {
     async createNewUser(newUser: any) {

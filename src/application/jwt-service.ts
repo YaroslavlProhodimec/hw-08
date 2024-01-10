@@ -9,7 +9,7 @@ import { JwtPayloadResult } from "../dto/common/jwt/JwtPayloadResult";
 dotenv.config();
 
 export const jwtService = {
-  async createJWT(
+  async  createJWT(
     userId: string,
     secret: string,
     expiresIn: number
@@ -24,7 +24,9 @@ export const jwtService = {
     secret: string
   ): Promise<JwtPayloadResult | null> {
     try {
+      console.log(token,'token')
       const result = jwt.verify(token, secret);
+      console.log(result,'result jwt.verify(token, secret);')
       return result as JwtPayloadResult;
     } catch (error) {
       if (error instanceof TokenExpiredError) {

@@ -1,6 +1,6 @@
 import {SortDirection, WithId} from "mongodb";
-import {usersCollection} from "../../index";
 import {UserDBType} from "../../dto/usersDTO/usersDTO";
+import {usersCollection} from "../../db";
 
 export const usersQueryRepository = {
   // async getUsers(

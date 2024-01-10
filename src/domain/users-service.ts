@@ -56,8 +56,8 @@ export const usersService = {
   //   return await usersCommandsRepository.deleteUser(id);
   // },
   async _generateHash(password: string, salt: string) {
-    console.log(password,'password')
-    console.log(salt,'salt')
+    // console.log(password,'password')
+    // console.log(salt,'salt')
     return await bcrypt.hash(password, salt);
   },
 
@@ -77,7 +77,7 @@ export const usersService = {
       password,
       user.accountData.passwordHash
     );
-    console.log(passwordHash,'passwordHash')
+    // console.log(passwordHash,'passwordHash')
     if (user.accountData.passwordHash !== passwordHash) {
       return null;
     }

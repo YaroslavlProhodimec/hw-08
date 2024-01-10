@@ -1,9 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import {HTTP_STATUSES} from "../../utils/common";
-import {jwtService} from "../../domain/jwt-service";
-import {usersCollection} from "../../index";
-import {ObjectId} from "mongodb";
 import {StatusCodes} from "http-status-codes";
+import {jwtService} from "../../application/jwt-service";
 
 
 const login = 'admin'

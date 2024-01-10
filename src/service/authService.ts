@@ -4,7 +4,6 @@ import {v4 as uuidv4} from 'uuid';
 import {add} from 'date-fns/add'
 import {emailManager} from "../managers/email-manager";
 import {usersCommandsRepository} from "../repositories/commands-repository/usersCommandsRepository";
-import {usersCollection} from "../index";
 import {UserAlreadyExistsError} from "../utils/errors-utils/registration-errors/UserAlreadyExistsError";
 import {RegistrationError} from "../utils/errors-utils/registration-errors/RegistrationError";
 import {
@@ -19,6 +18,7 @@ import {WrongEmailError} from "../utils/errors-utils/resend-email-errors/WrongEm
 import {EmailAlreadyConfirmedError} from "../utils/errors-utils/resend-email-errors/EmailAlreadyConfirmedError";
 import {usersQueryRepository} from "../repositories/query-repository/usersQueryRepository";
 import {authCommandsRepository} from "../repositories/commands-repository/authCommandsRepository";
+import {usersCollection} from "../db";
 
 export const authService = {
     async createUser(login: string, email: string, password: string) {

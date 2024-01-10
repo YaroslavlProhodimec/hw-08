@@ -1,5 +1,5 @@
 import {Router,Request,Response} from "express";
-import {blogCollection, commentsCollection, dbBlogs, postCollection, usersCollection} from "./index";
+import {blogCollection, commentsCollection, postCollection, usersCollection} from "./db";
 export const testingRouter = Router({})
 
 

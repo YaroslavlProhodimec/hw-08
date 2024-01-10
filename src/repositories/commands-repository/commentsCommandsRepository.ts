@@ -1,5 +1,5 @@
-import {commentsCollection} from "../../index";
 import {ObjectId} from "mongodb";
+import {commentsCollection} from "../../db";
 
 export const commentsCommandsRepository = {
     // async createComment(newComment: any): Promise<any> {

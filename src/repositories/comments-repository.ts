@@ -1,12 +1,8 @@
 import {OutputPostType, PostType} from "../types/post/output";
-import {commentsCollection, postCollection, usersCollection} from "../index";
 import {ObjectId, WithId} from "mongodb";
-import {BlogType} from "../types/blog/output";
-import {postMapper} from "../types/post/mapper";
 import {commentsMapper} from "../types/comments/mapper";
-import {UpdatePostDto} from "../types/post/input";
-import {BlogRepository} from "./blog-repository";
 import {usersCommandsRepository} from "./commands-repository/usersCommandsRepository";
+import {commentsCollection} from "../db";
 
 export class CommentsRepository {
     static async getAllCommentsQueryParam(sortData: any, postId: any) {

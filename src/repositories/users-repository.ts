@@ -1,10 +1,11 @@
 import {ObjectId, WithId} from "mongodb";
-import {usersCollection} from "../index";
 import bcrypt from 'bcrypt'
 import {BlogType} from "../types/blog/output";
 import {usersMapper} from "../types/users/mapper";
 import {usersCommandsRepository} from "./commands-repository/usersCommandsRepository";
 import {UserAlreadyExistsError} from "../utils/errors-utils/registration-errors/UserAlreadyExistsError";
+import {usersCollection} from "../db";
+import {authService} from "../service/authService";
 
 export class UsersRepository {
     static async getAllUsers(sortData: any) {
@@ -111,9 +112,9 @@ export class UsersRepository {
                 "User with the given email already exists"
             );
         } else {
-            // await authService.createRefreshTokenBlacklistForUser(
-            //     new ObjectId(createUserResult.id)
-            // );
+            await authService.createRefreshTokenBlacklistForUser(
+                new ObjectId(createUserResult.id)
+            );
             return createUserResult;
         }
     }

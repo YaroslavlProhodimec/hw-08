@@ -3,7 +3,6 @@ import {authService} from "../service/authService";
 import {StatusCodes} from "http-status-codes";
 import {create_access_refresh_tokens} from "../utils/auth-utils/create_Access_Refresh_Tokens";
 import {LoginInputModel, MeViewModel} from "../dto/authDTO/authDTO";
-import {UsersRepository} from "../repositories/users-repository";
 import {usersCommandsRepository} from "../repositories/commands-repository/usersCommandsRepository";
 import {getCurrentUserInfo} from "../utils/auth-utils/getCurrentUserInfo";
 
@@ -42,8 +41,6 @@ export const getInfoAboutUser = async (
   req: Request,
   res: Response<MeViewModel>
 ) => {
-    // console.log(req.userId,'userId')
-    // @ts-ignore
   const foundUser = await usersCommandsRepository.findUserById(req.userId);
   if (foundUser) {
     const currentUser = getCurrentUserInfo(foundUser);
@@ -129,13 +126,12 @@ export const refreshToken = async (req: Request, res: Response) => {
     const refreshTokenFromClient = req.cookies.refreshToken;
     await authService.placeRefreshTokenToBlacklist(
         refreshTokenFromClient,
-        // @ts-ignore
         req.userId
     );
     const { accessToken, refreshToken } = await create_access_refresh_tokens(
-        // @ts-ignore
         req.userId
     );
+
     res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
         secure: true,

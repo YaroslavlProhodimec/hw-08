@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { ObjectId } from "mongodb";
 import { authQueryRepository } from "../repositories/query-repository/authQueryRepository";
-import {jwtService} from "../domain/jwt-service";
+import {jwtService} from "../application/jwt-service";
 
 export const refreshTokenValidityMiddleware = async (
     req: Request,
@@ -10,7 +10,7 @@ export const refreshTokenValidityMiddleware = async (
     next: NextFunction
 ) => {
   const refreshTokenFromClient = req.cookies.refreshToken;
-  console.log(refreshTokenFromClient,'refreshTokenFromClient')
+  // console.log(refreshTokenFromClient,'refreshTokenFromClient')
   if (!refreshTokenFromClient || !refreshTokenFromClient.trim()) {
     res.sendStatus(StatusCodes.UNAUTHORIZED);
     return;
