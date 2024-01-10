@@ -4,12 +4,12 @@ export const create_access_refresh_tokens = async (userId: string) => {
   const accessToken = await jwtService.createJWT(
     userId,
     process.env.ACCESS_TOKEN_SECRET as string,
-    1000
+    10
   );
   const refreshToken = await jwtService.createJWT(
     userId,
     process.env.REFRESH_TOKEN_SECRET as string,
-    2000
+    20
   );
   return {
     accessToken,
